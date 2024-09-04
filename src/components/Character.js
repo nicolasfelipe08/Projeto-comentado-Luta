@@ -15,4 +15,3 @@ class Character {
         this.#life = newLife < 0 ? 0 : newLife
     }
 }
-

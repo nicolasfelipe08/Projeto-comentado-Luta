@@ -15,6 +15,12 @@ class Stage {
 
     start() {
         this.update()
+
+        // char 1
+        this.char1Element.querySelector('.attack-button').addEventListener('click', () => this.doAttack(this.char1, this.char2))
+
+        // char 2
+        this.char2Element.querySelector('.attack-button').addEventListener('click', () => this.doAttack(this.char2, this.char1))
     }
 
     update() {
@@ -29,5 +35,12 @@ class Stage {
         // barra de vida
         let char2HP = (this.char2.life / this.char2.maxLife) * 100
         this.char2Element.querySelector('.bar').style.width = `${char2HP}%`
+    }
+
+    doAttack(attacking, attacked) {
+        console.log(`${attacking.name} está atacando ${attacked.name}!`)
+
+        // atualizar dados
+        this.update()
     }
 }
