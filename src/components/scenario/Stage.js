@@ -6,11 +6,12 @@
  */
 
 class Stage {
-    constructor(char1, char2, char1Element, char2Element) {
+    constructor(char1, char2, char1Element, char2Element, logObject) {
         this.char1 = char1
         this.char2 = char2
         this.char1Element = char1Element
         this.char2Element = char2Element
+        this.log = logObject
     }
 
     start() {
@@ -38,7 +39,26 @@ class Stage {
     }
 
     doAttack(attacking, attacked) {
-        console.log(`${attacking.name} está atacando ${attacked.name}!`)
+        //console.log(`${attacking.name} está atacando ${attacked.name}!`)
+
+        if (attacking.life <= 0 || attacked.life <= 0) {
+            this.log.addMessage('Atacando cachorro morto.')
+            return
+        }
+
+        // gerar um número aleatório para o attack e defense
+        let attackFactor = (Math.random() * 2).toFixed(1)
+        let defenseFactor = (Math.random() * 2).toFixed(1)
+
+        let actualAttack = attacking.attack * attackFactor
+        let actualDefense = attacking.defense * defenseFactor
+
+        if (actualAttack > actualDefense) {
+            attacked.life -= actualAttack
+            this.log.addMessage(`${attacking.name} causou ${actualAttack.toFixed(1)} de dano ${attacked.name}`)
+        } else {
+            this.log.addMessage(`${attacked.name} conseguiu se defender...`)
+        }
 
         // atualizar dados
         this.update()
